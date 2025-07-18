@@ -7,6 +7,7 @@ from torchvision import models, transforms
 from sklearn.svm import LinearSVC
 from skimage import io
 from tqdm import tqdm
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"  
 
 # ---------- Config ----------
 IMG_DIR = '/mnt/nvme_disk2/User_data/nb57077k/.cache/kagglehub/datasets/youssefelebiary/household-trash-recycling-dataset/versions/3/images/train'
@@ -61,7 +62,7 @@ def get_proposals(image):
 # ---------- Data Collection ----------
 X, Y = [], []
 
-for file in tqdm(os.listdir(IMG_DIR)):
+for file in tqdm(os.listdir(IMG_DIR)[:1000]):
     if not file.endswith('.jpg'): continue
     img_path = os.path.join(IMG_DIR, file)
     label_path = os.path.join(LBL_DIR, file.replace('.jpg', '.txt'))
